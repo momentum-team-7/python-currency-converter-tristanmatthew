@@ -59,6 +59,13 @@ class Money:
         """
         
 
+        if(self.currency.symbol != None):
+            return f"{self.currency.symbol}"
+        else:
+            return f"{self.currency.code} "
+
+    
+
     def __repr__(self):
         return f"<Money {str(self)}>"
 
@@ -75,14 +82,28 @@ class Money:
         Add two money objects of the same currency. If they have different
         currencies, raise a DifferentCurrencyError.
         """
-        pass
+        if(self.currency.code == other.currency.code):
+            base_currency = self.amount
+            target_currency = other.amount
+            total_currency = Money(base_currency + target_currency, self.currency)
+            return total_currency
+
+        else:
+            raise DifferentCurrencyError
+            
 
     def sub(self, other):
         """
         Subtract two money objects of the same currency. If they have different
         currencies, raise a DifferentCurrencyError.
         """
-        pass
+        if(self.currency.code == other.currency.code):
+            base_currency = self.amount
+            target_currency = other.amount
+            total_currency = Money(base_currency - target_currency, self.currency)
+
+        else:
+            raise DifferentCurrencyError
 
     def mul(self, multiplier):
         """
